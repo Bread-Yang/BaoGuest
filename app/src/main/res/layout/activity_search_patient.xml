@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mdground.yideguanregister.view.ResizeLinearLayout
+<com.mdground.guest.view.ResizeLinearLayout
     android:id="@+id/layout_root_search_patient"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -227,4 +227,4 @@
 
     </RelativeLayout>
 
-</com.mdground.yideguanregister.view.ResizeLinearLayout>
+</com.mdground.guest.view.ResizeLinearLayout>

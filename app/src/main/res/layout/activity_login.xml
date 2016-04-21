@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mdground.yideguanregister.view.ResizeLayout
+<com.mdground.guest.view.ResizeLayout
     android:id="@+id/login_root_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -42,7 +42,7 @@
                 android:background="@drawable/box8_nor"
                 android:orientation="vertical">
 
-                <com.mdground.yideguanregister.view.ClearEditText
+                <com.mdground.guest.view.ClearEditText
                     android:id="@+id/et_account"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -65,7 +65,7 @@
                     android:background="#CDCDCD"/>
 
 
-                <com.mdground.yideguanregister.view.ClearEditText
+                <com.mdground.guest.view.ClearEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
@@ -99,4 +99,4 @@
         </LinearLayout>
     </ScrollView>
 
-</com.mdground.yideguanregister.view.ResizeLayout>
+</com.mdground.guest.view.ResizeLayout>

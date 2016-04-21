@@ -9,7 +9,7 @@
     android:gravity="right"
     android:orientation="horizontal">
 
-    <com.mdground.yideguanregister.view.CircleImageView
+    <com.mdground.guest.view.CircleImageView
         android:id="@+id/doctor_icon"
         android:layout_width="240px"
         android:layout_height="240px"
