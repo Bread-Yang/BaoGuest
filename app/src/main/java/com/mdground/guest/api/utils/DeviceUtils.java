@@ -28,7 +28,7 @@ public class DeviceUtils {
 //		} else {
 //			device.setPlatform(PlatformType.ANDROID_PHONE.value());
 //		}
-		device.setPlatform(PlatformType.ANDROID_PAD.value());
+		device.setPlatform(PlatformType.AndroidCashRegistersScreen.value());
 		// 设置android版本号
 		device.setPlatformVersion(android.os.Build.VERSION.RELEASE);
 		// 型号
@@ -49,6 +49,6 @@ public class DeviceUtils {
 //		} else {
 //			return PlatformType.ANDROID_PHONE.value();
 //		}
-		return PlatformType.ANDROID_PAD.value();
+		return PlatformType.AndroidCashRegistersScreen.value();
 	}
 }

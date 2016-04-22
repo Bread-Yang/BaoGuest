@@ -46,6 +46,9 @@ public class Employee implements Parcelable {
 	@Transient
 	public static final int AUDIT_MANAGER = 256;
 
+	@Transient
+	public static final int KE_XIAN_SCREEN = 512;
+
 	@Id
 	public int id;
 	public int EmployeeID;

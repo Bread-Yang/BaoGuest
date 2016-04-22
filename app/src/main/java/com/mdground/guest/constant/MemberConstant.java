@@ -10,6 +10,8 @@ public class MemberConstant {
     public static final int RECORD_INFO_CODE = 1;
     public static final int Medicine_INFO_CODE = 2;
 
+    public static final String XG_INTENT_TAG = "com.mdground.guest.xgPush";
+
     public static final String UPDATE_TICKS = "update_ticks";
 
     /**

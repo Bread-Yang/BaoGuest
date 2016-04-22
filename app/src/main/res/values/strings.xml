@@ -25,6 +25,30 @@
     <string name="female">女</string>
     <string name="refill">重填</string>
 
+    <!-- 收银 -->
+    <string name="pending_settlement">待结算</string>
+    <string name="close_settlement">已结算</string>
+    <string name="no_pending_settlement_data">无待结算账单</string>
+    <string name="no_close_settlement_data">无已结算账单</string>
+    <string name="receivable_fee">应收</string>
+    <string name="receivable_fee_asterisk">应收:</string>
+    <string name="already_pay">已收</string>
+    <string name="already_pay_asterisk">已收:</string>
+    <string name="real_fee">实收</string>
+    <string name="real_fee_asterisk">实收:</string>
+    <string name="real_refund">实退</string>
+    <string name="cash_charge">现金收费</string>
+    <string name="change">找零</string>
+    <string name="cash_insufficient">现金收费不足</string>
+    <string name="settlement">结算</string>
+    <string name="settlement_formula">(实收=应收-优惠)</string>
+    <string name="coupon">优惠</string>
+    <string name="makeup">补差: </string>
+    <string name="confirm_charge">确认收费</string>
+    <string name="confirm_refund">确认退款</string>
+    <string name="close">关闭</string>
+    <string name="yuan">元</string>
+
     <!-- 挂号成功对话框 -->
     <string name="dialog_regist_success">成功挂号</string>
     <string name="dialog_regist_wait_people">前面等待人数：%d人</string>

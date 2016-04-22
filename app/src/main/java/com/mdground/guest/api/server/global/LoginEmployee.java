@@ -54,7 +54,7 @@ public class LoginEmployee extends GlobalRequest {
 //			}
 //		}
 //		device.setDeviceToken(deviceToken);
-		device.setDeviceToken("abc");
+//		device.setDeviceToken("abc");
 		LoginData loginData = new LoginData();
 		loginData.setLoginID(loginId);
 		loginData.setPwd(pwd);

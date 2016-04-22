@@ -9,6 +9,7 @@ import com.mdground.guest.api.MdgAppliction;
 import com.mdground.guest.bean.Clinic;
 import com.mdground.guest.bean.Employee;
 import com.mdground.guest.util.MdgConfig;
+import com.mdground.guest.util.TencentXgPush;
 import com.mdground.guest.util.YiDeGuanImageDownloader;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -38,6 +39,8 @@ public class MedicalAppliction extends MdgAppliction {
         super.onCreate();
 
         initImageLoader();
+        // 初始化信鸽推送
+        initTencentXgPush();
     }
 
     /**
@@ -51,6 +54,16 @@ public class MedicalAppliction extends MdgAppliction {
                 .imageDownloader(new YiDeGuanImageDownloader(getApplicationContext())).defaultDisplayImageOptions(options).build();
 
         ImageLoader.getInstance().init(configuration);
+    }
+
+    /**
+     * 初始化信鸽推送
+     */
+    private void initTencentXgPush() {
+        // TencentXgPush.config(this, MedicalConstant.XG_V2_ACCESS_ID,
+        // MedicalConstant.XG_V2_ACCESS_KEY);
+        TencentXgPush.registerPush(this);
+//        TencentXgPush.customPushNotifyLayout(this);
     }
 
     public boolean isMainProcess() {

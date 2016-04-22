@@ -14,10 +14,11 @@ import android.widget.Toast;
 
 import com.mdground.guest.MedicalAppliction;
 import com.mdground.guest.R;
-import com.mdground.guest.activity.searchpatient.SearchPatientActivity;
+import com.mdground.guest.activity.settlement.SettlementConfirmActivity;
 import com.mdground.guest.api.base.RequestCallBack;
 import com.mdground.guest.api.base.ResponseCode;
 import com.mdground.guest.api.base.ResponseData;
+import com.mdground.guest.api.bean.Device;
 import com.mdground.guest.api.server.clinic.GetClinic;
 import com.mdground.guest.api.server.global.LoginEmployee;
 import com.mdground.guest.api.utils.DeviceIDUtil;
@@ -31,6 +32,9 @@ import com.mdground.guest.dialog.LoadingDialog;
 import com.mdground.guest.util.MdgConfig;
 import com.mdground.guest.util.PreferenceUtils;
 import com.mdground.guest.view.ResizeLayout;
+import com.socks.library.KLog;
+import com.tencent.android.tpush.XGPushConfig;
+import com.tencent.android.tpush.XGPushManager;
 
 import org.apache.http.Header;
 
@@ -140,11 +144,35 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 
 	private void login(final String userName, final String password) {
 
-		new LoginEmployee(this).loginEmployee(userName, password, DeviceUtils.getDeviceInfo(getApplicationContext()), new RequestCallBack() {
+		Device device = DeviceUtils.getDeviceInfo(getApplicationContext());
+
+		device.setDeviceID(new DeviceIDUtil().getDeviceID());
+
+		String token = XGPushConfig.getToken(getApplicationContext());
+		KLog.e("信鸽token是 :" + token	);
+
+		if (token == null || "".equals(token)) {
+			Toast.makeText(this, "信鸽token为空,登录失败", Toast.LENGTH_SHORT).show();
+			XGPushManager.registerPush(getApplicationContext());
+			return;
+		}
+		device.setDeviceToken(token);
+
+		new LoginEmployee(this).loginEmployee(userName, password, device, new RequestCallBack() {
 
 			@Override
 			public void onStart() {
 				mLoadIngDialog.show();
+			}
+
+			@Override
+			public void onFinish() {
+
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+				mLoadIngDialog.dismiss();
 			}
 
 			@Override
@@ -156,8 +184,7 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 					case Normal: {
 						Employee employee = response.getContent(Employee.class);
 
-						if (((employee.getEmployeeRole() & Employee.DOCTOR) == 0
-								&& (employee.getEmployeeRole() & Employee.NURSE) == 0)) {
+						if ((employee.getEmployeeRole() & Employee.KE_XIAN_SCREEN) == 0) {
 							Toast.makeText(getApplicationContext(), "账号异常,请联系客服", Toast.LENGTH_LONG).show();
 							return;
 						}
@@ -198,16 +225,6 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 				}
 
 			}
-
-			@Override
-			public void onFinish() {
-				mLoadIngDialog.dismiss();
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
-			}
 		});
 	}
 
@@ -220,12 +237,12 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-
+				mLoadIngDialog.dismiss();
             }
 
             @Override
             public void onFinish() {
-
+				mLoadIngDialog.dismiss();
             }
 
             @Override
@@ -235,7 +252,7 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 
                     application.mClinic = response.getContent(Clinic.class);
 
-					Intent intent = new Intent(LoginActivity.this, SearchPatientActivity.class);
+					Intent intent = new Intent(LoginActivity.this, SettlementConfirmActivity.class);
 					startActivity(intent);
 					finish();
                 }
