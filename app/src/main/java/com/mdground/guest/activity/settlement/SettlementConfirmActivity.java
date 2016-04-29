@@ -5,6 +5,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,10 +23,12 @@ import com.mdground.guest.api.base.RequestCallBack;
 import com.mdground.guest.api.base.ResponseCode;
 import com.mdground.guest.api.base.ResponseData;
 import com.mdground.guest.api.server.clinic.PayBilling;
+import com.mdground.guest.api.server.global.GetAndroidCashRegistersScreenVersion;
 import com.mdground.guest.api.server.global.LogoutEmployee;
 import com.mdground.guest.constant.MemberConstant;
 import com.mdground.guest.util.PreferenceUtils;
 import com.mdground.guest.util.StringUtils;
+import com.mdground.guest.util.UpdateUtils;
 import com.socks.library.KLog;
 
 import org.apache.http.Header;
@@ -175,6 +179,60 @@ public class SettlementConfirmActivity extends BaseActivity implements OnClickLi
             @Override
             public void onClick(View v) {
                 dialog_logout.show();
+            }
+        });
+
+        findViewById(R.id.tv_upgrade).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PackageManager packageManager = getPackageManager();
+                // getPackageName()是你当前类的包名，0代表是获取版本信息
+                PackageInfo packInfo = null;
+                try {
+                    packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+                    String versionName = packInfo.versionName;
+
+                    new GetAndroidCashRegistersScreenVersion(getApplicationContext()).getAndroidVersion(versionName, new RequestCallBack() {
+                        @Override
+                        public void onStart() {
+                            showProgress();
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                            hideProgress();
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            hideProgress();
+                        }
+
+                        @Override
+                        public void onSuccess(ResponseData response) {
+                            if (!StringUtils.isEmpty(response.getContent())) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.getContent());
+
+                                    String link = jsonObject.getString("Link");
+                                    String version = jsonObject.getString("Version");
+
+                                    UpdateUtils updateUtils = new UpdateUtils(SettlementConfirmActivity.this);
+                                    updateUtils.mDownloadLink = link;
+
+                                    updateUtils.showNoticeDialog();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                Toast.makeText(SettlementConfirmActivity.this, R.string.soft_update_no, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
