@@ -42,7 +42,7 @@ public class LoginEmployee extends GlobalRequest {
 		if (appliction == null) {
 			return;
 		}
-		device.setDeviceID(appliction.getDeviceId());
+//		device.setDeviceID(appliction.getDeviceId());
 		String deviceToken = appliction.getDeviceToken();
 //		if (deviceToken == null || deviceToken.equals("")) {
 //			if (listener != null) {

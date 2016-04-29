@@ -31,7 +31,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name="com.mdground.guest.activity.LoginActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -41,13 +41,13 @@
         </activity>
         <activity
             android:name="com.mdground.guest.activity.settlement.SettlementConfirmActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="landscape"/>
         <activity
             android:name="com.mdground.guest.activity.searchpatient.SearchPatientActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="landscape"/>
         <activity
             android:name="com.mdground.guest.activity.doctorlist.DoctorSelectListActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="landscape"/>
 
         <!-- 【必须】 信鸽receiver广播接收 -->
         <receiver

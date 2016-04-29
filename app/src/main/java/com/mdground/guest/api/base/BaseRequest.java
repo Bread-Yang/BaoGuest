@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.MySSLSocketFactory;
 import com.loopj.android.http.TextHttpResponseHandler;
 import com.mdground.guest.BuildConfig;
 import com.mdground.guest.R;
@@ -260,6 +261,7 @@ public abstract class BaseRequest {
     protected AsyncHttpClient getHttpClient() {
         if (httpClient == null) {
             httpClient = new AsyncHttpClient();
+            httpClient.setSSLSocketFactory(MySSLSocketFactory.getFixedSocketFactory());
             httpClient.setTimeout(TIME_OUT);
         }
         return httpClient;

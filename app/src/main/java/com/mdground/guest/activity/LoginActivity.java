@@ -185,6 +185,7 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 						Employee employee = response.getContent(Employee.class);
 
 						if ((employee.getEmployeeRole() & Employee.KE_XIAN_SCREEN) == 0) {
+							mLoadIngDialog.dismiss();
 							Toast.makeText(getApplicationContext(), "账号异常,请联系客服", Toast.LENGTH_LONG).show();
 							return;
 						}
@@ -219,6 +220,7 @@ public class LoginActivity extends Activity implements OnClickListener, ResizeLa
 					case AppCustom7:
 					case AppCustom8:
 					case AppCustom9: {
+						mLoadIngDialog.dismiss();
 						Toast.makeText(getApplicationContext(), response.getMessage(), Toast.LENGTH_SHORT).show();
 						break;
 					}
